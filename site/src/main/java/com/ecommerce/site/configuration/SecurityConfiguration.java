@@ -29,11 +29,19 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
     @Override
     protected void configure(HttpSecurity http) throws Exception{
-        http
-                .authorizeRequests().antMatchers("/cart")
-                .authenticated().and().formLogin().loginPage("/signin")
-                .loginProcessingUrl("/login").and()
-                .logout().logoutRequestMatcher(new AntPathRequestMatcher("/signout"))
+        http.authorizeRequests()
+                .antMatchers("/").permitAll()
+                .antMatchers("/console/**").permitAll()
+                .antMatchers("/cart")
+                .authenticated()
+                .and().csrf().disable().formLogin()
+                .loginPage("/signin")
+                .loginProcessingUrl("/login")
+                .and().logout()
+                .logoutRequestMatcher(new AntPathRequestMatcher("/signout"))
                 .logoutSuccessUrl("/");
+
+        http.headers().frameOptions().disable();
+
     }
 }

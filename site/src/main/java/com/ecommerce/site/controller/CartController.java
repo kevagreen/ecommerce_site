@@ -39,10 +39,12 @@ public class CartController {
     public List<Double> list(){
         return new ArrayList<>();
     }
+
     @GetMapping(value = "/cart")
     public String show(){
         return "cart";
     }
+
     @PostMapping(value = "/cart")
     public String addToCart(@RequestParam int id) {
         Product product = productService.findById(id);
