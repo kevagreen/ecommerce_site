@@ -26,11 +26,17 @@ public class User implements UserDetails {
     @Column(name = "user_id")
     private int id;
 
-    @NotEmpty(message = "Please provide your first name")
-    private String firstName;
+    @Transient
+    private boolean accountNonExpired = true;
+    @Transient
+    private boolean accountNonLocked = true;
+    @Transient
+    private boolean credentialsNonExpired = true;
+    @Transient
+    private boolean enabled = true;
+    @Transient
+    private Collection<GrantedAuthority> authorities = null;
 
-    @NotEmpty(message = "Please provide your last name")
-    private String lastName;
 
     @NotEmpty(message = "Please provide a username")
     @Length(min = 3, message = "Your username must have at least 3 characters")
@@ -43,10 +49,6 @@ public class User implements UserDetails {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
-    @Email(message = "Please provide a valid email")
-    @NotEmpty(message = "Please provide an email")
-    private String email;
-
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
@@ -54,15 +56,5 @@ public class User implements UserDetails {
     @ElementCollection
     private Map<Product, Integer> cart;
 
-    @Transient
-    private boolean accountNonExpired = true;
-    @Transient
-    private boolean accountNonLocked = true;
-    @Transient
-    private boolean credentialsNonExpired = true;
-    @Transient
-    private boolean enabled = true;
-    @Transient
-    private Collection<GrantedAuthority> authorities = null;
 
 }

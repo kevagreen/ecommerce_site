@@ -4,8 +4,10 @@ import com.ecommerce.site.model.User;
 import com.ecommerce.site.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -25,8 +27,9 @@ public class AuthenticationController {
         return "signin";
     }
 
+
     @PostMapping(value = "/signin")
-    public String signup(@Valid User user, @RequestParam String submit, BindingResult bindingResult, HttpServletRequest request) throws ServletException {
+    public String signup(@Valid User user, @RequestParam String submit, BindingResult bindingResult, HttpServletRequest request ) throws ServletException {
 
         String password = user.getPassword();
         if(submit.equals("up")){
@@ -38,6 +41,7 @@ public class AuthenticationController {
             }
         }
         request.login(user.getUsername(), password);
-        return "redirect: /";
+        return "redirect:/";
     }
+
 }

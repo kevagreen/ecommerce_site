@@ -28,9 +28,12 @@ public class MainController {
         return productService.findAll();
     }
 
+
+    @ModelAttribute("categories")
     public List<String> categories(){
         return productService.findDistinctCategory();
     }
+
 
     @ModelAttribute("brands")
     public List<String> brands(){
