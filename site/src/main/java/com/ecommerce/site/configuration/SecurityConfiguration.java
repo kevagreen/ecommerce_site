@@ -33,6 +33,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/").permitAll()
                 .antMatchers("/console/**").permitAll()
                 .antMatchers("/cart")
+
                 .authenticated()
                 .and().csrf().disable().formLogin()
                 .loginPage("/signin")
