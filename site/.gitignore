@@ -1,4 +1,6 @@
 src/main/resources/application.properties
+application.properties
+
 
 HELP.md
 .gradle
