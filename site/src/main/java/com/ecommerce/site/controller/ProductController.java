@@ -5,12 +5,10 @@ import com.ecommerce.site.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 public class ProductController {
@@ -23,11 +21,22 @@ public class ProductController {
         model.addAttribute(product);
         return "product";
     }
+
+    @ModelAttribute("products")
+    public List<Product> products(){
+        return productService.findAll();
+    }
     @RequestMapping(value = "/product", method = {RequestMethod.POST, RequestMethod.PUT})
     public String createOrUpdate(@Valid Product product){
         productService.save(product);
         return "redirect:/product/" + product.getId();
     }
 
+//    @GetMapping(value = "/cartItem")
+//    public String addItem(Model model){
+//        Product productInCart = new Product();
+//        model.addAttribute("product", productInCart);
+////        return "cartItem";
+//    }
 
 }

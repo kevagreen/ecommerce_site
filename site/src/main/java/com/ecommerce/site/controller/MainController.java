@@ -1,7 +1,9 @@
 package com.ecommerce.site.controller;
 
 import com.ecommerce.site.model.Product;
+import com.ecommerce.site.model.User;
 import com.ecommerce.site.service.ProductService;
+import com.ecommerce.site.service.UserService;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @Data
 @Controller
@@ -22,6 +25,7 @@ public class MainController {
     public String main(){
         return "main";
     }
+
 
     @ModelAttribute("products")
     public List<Product> products(){

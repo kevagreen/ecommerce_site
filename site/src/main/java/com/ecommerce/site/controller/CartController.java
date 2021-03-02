@@ -7,7 +7,9 @@ import com.ecommerce.site.service.ProductService;
 import com.ecommerce.site.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,20 +37,23 @@ public class CartController {
         return user.getCart();
     }
 
+
     @ModelAttribute("list")
     public List<Double> list(){
         return new ArrayList<>();
     }
 
     @GetMapping(value = "/cart")
-    public String show(){
+    public String showCart(){
         return "cart";
     }
 
+
     @PostMapping(value = "/cart")
     public String addToCart(@RequestParam int id) {
-        Product product = productService.findById(id);
-        setQuantity(product, cart().getOrDefault(product, 0) + 1);
+        Product p = productService.findById(id);
+        setQuantity(p, cart().getOrDefault(p, 0) + 1);
+
         return "cart";
     }
 
@@ -63,10 +68,10 @@ public class CartController {
         return "cart";
     }
 
-    @DeleteMapping(value = "/cart")
-    public String removeFromCart(@RequestParam int id){
-        Product product = productService.findById(id);
-        setQuantity(product, 0);
+    @PostMapping(value = "/cart/{id}")
+    public String removeFromCart(@PathVariable int id){
+        Product p = productService.findById(id);
+        setQuantity(p, 0);
         return "cart";
     }
 

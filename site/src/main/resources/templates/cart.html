@@ -6,7 +6,36 @@
 
 <h2>Shopping Cart</h2>
 
-<button id="checkout-button" name="submit" type="submit" href="/checkout">Checkout</button>
+<div class="row">
+    <div class="col">
+        <th:block th:each="product:${cart}">
+            <div class="row">
+                <img th:alt="${product.key.image}" th:src="@{${product.key.image}}" width=200 length=200 class="img-fluid"/>
+            </div>
+            <div class="col">
+                <div>
+                    <label th:text="${product.key.name}"/>
+                    <label th:text="'$' + ${product.key.price}"/>
+                    <form action="#" th:action="@{/cart/{id}(id=${product.key.id})}" th:method="post" >
+                        <input type="hidden" name="_method" value="post" />
+                        <button type="submit" id="submitButton">Remove from Cart </button>
+                    </form>
+                </div>
+                <div>
+                    <a href="/checkout">
+                        <button id="checkout-button" name="submit" type="submit" >Checkout</button>
+                    </a>
+                </div>
+            </div>
+        </th:block>
+
+    </div>
+</div>
+
+
+
+
+
 
 
 <div th:replace="fragments/fragments :: footer"></div>

@@ -21,9 +21,16 @@
                 <div class="card-body">
                     <div class="card-title">
                         <h4 th:text="${product.name}"></h4>
+                        <h4 th:text="'$' + ${product.price}"></h4>
                         <small th:text="${product.getBrand()}"></small>
                     </div>
                 </div>
+                <form  th:action="@{/cart (id=${product.getId()})}" th:name="${product}" th:method="post">
+                    <input type="hidden" th:value="${id}" />
+                    <button type="submit" class="btn btn-primary" >Add to Cart</button>
+                </form>
+
+
             </div>
         </div>
     </div>
@@ -32,4 +39,5 @@
 <footer th:replace="fragments/fragments :: footer"></footer>
 </body>
 </html>
+
 
